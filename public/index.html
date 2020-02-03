@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <h1 class="header">KEEP YOUR TODO HERE</h1>
+    <div class="todoContainer">
+      <div class="todo-list">
+        <h3>YOUR TODO LIST</h3>
+        <ul>
+          <li class="todo-list-item"><a>NEW TODO 1</a></li>
+          <li class="todo-list-item"><a>NEW TODO 2</a></li>
+          <li class="todo-list-item"><a>NEW TODO 3</a></li>
+        </ul>
+        <div class="todo-create">
+          <input
+            type="text"
+            class="new-todo-entry"
+            id="todoentry"
+            placeholder="New Todo..."
+          />
+          <div class="create btn"><a href="#" class="btn">+</a></div>
+        </div>
+      </div>
+      <div class="todo-task">
+        <div class="todo-header">
+          <h3>NEW TODO 1</h3>
+          <h6>3 tasks remaining</h6>
+        </div>
+        <div class="todo-body">
+          <div class="task">
+            <input type="checkbox" class="checkTask" id="task1" />
+            <label for="task1"
+              ><span class="checkbox"></span
+              ><span>Some Important Work 1</span></label
+            >
+          </div>
+          <div class="task">
+            <input type="checkbox" class="checkTask" id="task2" />
+            <label for="task2"
+              ><span class="checkbox"></span
+              ><span>Some Important Work 2</span></label
+            >
+          </div>
+          <div class="task">
+            <input type="checkbox" class="checkTask" id="task3" />
+            <label for="task3"
+              ><span class="checkbox"></span
+              ><span>Some Important Work 3 hey this is</span></label
+            >
+          </div>
+        </div>
+        <div class="task-create">
+          <input
+            type="text"
+            class="new-task-entry"
+            id="taskEntry"
+            placeholder="New Task..."
+          />
+          <div class="createTask btn"><a href="#" class="btn">+</a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
