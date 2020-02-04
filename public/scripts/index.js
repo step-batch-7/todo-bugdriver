@@ -48,6 +48,16 @@ const openFirstTodo = function() {
   }
 };
 
+const createTaskHTML = function(task) {
+  return `
+  <div class="task">
+    <input type="checkbox" class="checkTask"  
+      id="${task.id}" ${task.done ? 'checked' : ''}/>
+      <label for="${task.id}"><span class="checkbox"></span>
+      <span class="task-name">${task.name}</span></label>
+  </div>`;
+};
+
 const tasksRemainingInTodo = function(todo) {
   const tasksRemaining = todo.tasks.filter(task => !task.done);
   return tasksRemaining.length;
@@ -67,15 +77,7 @@ const showTodo = function(e) {
   const taskBox = document.querySelector('.todo-body');
   taskBox.innerHTML = '';
   todo.tasks.forEach(task => {
-    taskBox.innerHTML += `<div class="task">
-    <input type="checkbox" class="checkTask"  id="${task.id}" ${
-      task.done ? 'checked' : ''
-    }/>
-            <label for="${task.id}"
-              ><span class="checkbox"></span
-              ><span class="task-name">${task.name}</span></label
-            >
-          </div>`;
+    taskBox.innerHTML += createTaskHTML(task);
   });
   removeSelected();
   e.classList.add('selected');
@@ -83,9 +85,9 @@ const showTodo = function(e) {
 
 const saveTask = function() {
   const taskEntry = document.getElementById('taskEntry');
-  const todoId = document.querySelector('.todo-task').id;
   const taskName = taskEntry.value;
   if (!taskName) return;
+  const todoId = document.querySelector('.todo-task').id;
   const taskData = { todoId: todoId, taskName: taskName };
   postHttpReq(
     '/saveTask',
