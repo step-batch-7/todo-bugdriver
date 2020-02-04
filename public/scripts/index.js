@@ -52,10 +52,23 @@ const createTaskHTML = function(task) {
   return `
   <div class="task">
     <input type="checkbox" class="checkTask"  
-      id="${task.id}" ${task.done ? 'checked' : ''}/>
+      id="${task.id}" ${task.done ? 'checked' : ''} 
+      onclick="doneTask('${task.id}')"/>
       <label for="${task.id}"><span class="checkbox"></span>
       <span class="task-name">${task.name}</span></label>
   </div>`;
+};
+
+const doneTask = function(taskId) {
+  console.log(taskId);
+  const todoId = document.querySelector('.todo-task').id;
+  const taskData = { todoId: todoId, taskId: taskId };
+  postHttpReq(
+    '/updateTaskDoneStatus',
+    JSON.stringify(taskData),
+    'application/json;charset=UTF-8',
+    getToDos
+  );
 };
 
 const tasksRemainingInTodo = function(todo) {
