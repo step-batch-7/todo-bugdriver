@@ -56,16 +56,40 @@ const createTaskHTML = function(task) {
       onclick="doneTask('${task.id}')"/>
       <label for="${task.id}"><span class="checkbox"></span>
       <span class="task-name">${task.name}</span></label>
+      <div class="deleteButton" onclick="deleteTask('${task.id}')">
+        <img src="./images/minus.png" alt="" class="deleteTaskImg" />
+      </div>
   </div>`;
 };
 
 const doneTask = function(taskId) {
-  console.log(taskId);
   const todoId = document.querySelector('.todo-task').id;
   const taskData = { todoId: todoId, taskId: taskId };
   postHttpReq(
     '/updateTaskDoneStatus',
     JSON.stringify(taskData),
+    'application/json;charset=UTF-8',
+    getToDos
+  );
+};
+
+const deleteTask = function(taskId) {
+  const todoId = document.querySelector('.todo-task').id;
+  const taskData = { todoId: todoId, taskId: taskId };
+  postHttpReq(
+    '/deleteTask',
+    JSON.stringify(taskData),
+    'application/json;charset=UTF-8',
+    getToDos
+  );
+};
+
+const deleteTodo = function() {
+  const todoId = document.querySelector('.todo-task').id;
+  const todoData = { todoId };
+  postHttpReq(
+    '/deleteTodo',
+    JSON.stringify(todoData),
     'application/json;charset=UTF-8',
     getToDos
   );
