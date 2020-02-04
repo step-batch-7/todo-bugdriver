@@ -34,6 +34,13 @@ body {
 }
 .todo-task {
   box-shadow: 0 0 2px 2px grey;
+  position: relative;
+}
+.hidden {
+  transform: scale(0);
+}
+.show {
+  transform: scale(1);
 }
 .todo-header {
   display: flex;
@@ -104,6 +111,7 @@ h6 {
   font-size: calc(1vw + 0.4em);
   font-weight: 400;
   padding: 1em 2em;
+  margin-bottom: 5vh;
 }
 
 .checkTask {
@@ -177,8 +185,16 @@ h6 {
 
 .task-create {
   display: flex;
-  position: relative;
   padding: 1em 2em;
+  width: inherit;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.task-name {
+  width: 40vw;
 }
 
 .task-create > input {
@@ -210,7 +226,7 @@ h6 {
 }
 
 .new-task-entry {
-  width: 30vw;
+  width: 15vw;
   height: 4vh;
   border: 0;
   border-bottom: 1px solid grey;

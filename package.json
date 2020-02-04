@@ -15,7 +15,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "start": "node server.js"
+    "start": "export DATA_STORE=/Users/step21/rajatwork/JavaScript/todo-bugdriver/data/todoData.json;node server.js 3000"
   },
   "repository": {
     "type": "git",
