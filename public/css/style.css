@@ -38,7 +38,6 @@ body {
 .todo-header {
   display: flex;
   font-size: calc(1vw + 0.5em);
-  width: 30vw;
   justify-content: space-between;
   align-items: center;
   padding: 0 3em;
@@ -47,9 +46,11 @@ body {
 }
 h3 {
   margin: 0.5em;
+  display: inline;
 }
 h6 {
   margin: 0.5em;
+  display: inline;
 }
 .todo-list-item {
   cursor: pointer;
@@ -144,6 +145,7 @@ h6 {
   align-items: center;
   position: relative;
   transition: opacity ease-out 200ms;
+  cursor: pointer;
 }
 .task::after {
   content: '';
@@ -241,6 +243,6 @@ h6 {
   opacity: 0.8;
 }
 .todo-list-item:hover {
-  transform: scale(1.04);
+  transform: scale(1.02);
   opacity: 1;
 }
