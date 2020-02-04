@@ -53,6 +53,11 @@ const tasksRemainingInTodo = function(todo) {
   return tasksRemaining.length;
 };
 
+const removeSelected = function() {
+  const selectedElement = document.querySelector('.selected');
+  selectedElement && selectedElement.classList.remove('selected');
+};
+
 const showTodo = function(e) {
   const todo = todoData.find(todoElement => todoElement.id == e.id);
   document.querySelector('.todo-task').id = e.id;
@@ -72,6 +77,8 @@ const showTodo = function(e) {
             >
           </div>`;
   });
+  removeSelected();
+  e.classList.add('selected');
 };
 
 const saveTask = function() {
