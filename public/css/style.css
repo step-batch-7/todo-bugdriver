@@ -68,7 +68,6 @@ h6 {
   display: flex;
 }
 .todo-create > input {
-  order: 1;
   margin-left: 0.5vw;
   background: 0;
 }
@@ -77,10 +76,10 @@ h6 {
   background: 0;
   margin: 0;
   padding: 0;
-  height: 1.2em;
-  width: 1.2em;
+  height: 1.5em;
+  width: 1.5em;
   position: absolute;
-  left: -1.5em;
+  right: 10vw;
   border-radius: 50%;
   outline: none;
   border: 0.5px solid grey;
@@ -207,7 +206,6 @@ h6 {
 }
 
 .task-create > input {
-  order: 1;
   margin-left: 0.5vw;
   background: 0;
 }
@@ -216,8 +214,8 @@ h6 {
   background: 0;
   margin: 0;
   padding: 0;
-  height: 1.5em;
-  width: 1.5em;
+  height: 2em;
+  width: 2em;
   border-radius: 50%;
   outline: none;
   border: 0.5px solid grey;
@@ -227,6 +225,8 @@ h6 {
   box-shadow: 0 0 1px 1px grey;
   color: grey;
   background-color: white;
+  position: absolute;
+  right: 32.5vw;
 }
 
 .createTask.btn:hover {
