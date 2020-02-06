@@ -11,7 +11,7 @@
     <script src="./scripts/index.js"></script>
   </head>
   <body>
-    <h1 class="header">KEEP YOUR TODO HERE</h1>
+    <h1 class="header">KEEP YOUR TODO'S HERE</h1>
     <div class="todoContainer">
       <div class="todo-list">
         <h3>YOUR TODO LIST</h3>
@@ -28,29 +28,31 @@
           </div>
         </div>
       </div>
-      <div class="todo-task hidden">
-        <div class="todo-header">
-          <h3 id="todo-title"></h3>
-          <h6><span id="taskcount"></span> tasks remaining</h6>
-          <div class="deleteTodoButton" onclick="deleteTodo()">
-            <img
-              src="./images/delete.png"
-              alt=""
-              class="deleteTodoImg"
-              title="deleteTodo"
-            />
+      <div>
+        <div class="todo-task hidden">
+          <div class="todo-header">
+            <h3 id="todo-title"></h3>
+            <h6><span id="taskcount"></span> tasks remaining</h6>
+            <div class="deleteTodoButton" onclick="deleteTodo()">
+              <img
+                src="./images/delete.png"
+                alt=""
+                class="deleteTodoImg"
+                title="deleteTodo"
+              />
+            </div>
           </div>
-        </div>
-        <div class="todo-body"></div>
-        <div class="task-create">
-          <input
-            type="text"
-            class="new-task-entry"
-            id="taskEntry"
-            placeholder="New Task..."
-          />
-          <div class="createTask btn" id="createTask">
-            <a class="btn">+</a>
+          <div class="todo-body"></div>
+          <div class="task-create">
+            <input
+              type="text"
+              class="new-task-entry"
+              id="taskEntry"
+              placeholder="New Task..."
+            />
+            <div class="createTask btn" id="createTask">
+              <a class="btn">+</a>
+            </div>
           </div>
         </div>
       </div>

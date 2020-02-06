@@ -18,13 +18,24 @@ const postHttpReq = function(url, data, contentType, callback) {
   xhr.send(data);
 };
 
+const hideTodoBox = function() {
+  document.querySelector('.todo-task').classList.replace('show', 'hidden');
+};
+
+const showTodoBox = function() {
+  document.querySelector('.todo-task').classList.replace('hidden', 'show');
+};
+
 const fillTodoList = function(todoData) {
   const todoListBox = document.querySelector('.todo-list-items');
+  const selected = document.querySelector('.selected');
+  const selectedTodoId = selected && selected.id;
   todoListBox.innerHTML = '';
   todoData.forEach(todo => {
     const liElement = document.createElement('li');
     liElement.classList.add('todo-list-item');
     liElement.id = todo.id;
+    liElement.id == selectedTodoId && liElement.classList.add('selected');
     liElement.onclick = () => showTodo(liElement);
     const liTitle = document.createTextNode(todo.title);
     liElement.appendChild(liTitle);
@@ -43,8 +54,10 @@ const getToDos = function() {
 const openFirstTodo = function() {
   const firstTodo = document.querySelector('.todo-list-item');
   if (firstTodo) {
+    const selected = document.querySelector('.selected');
     firstTodo.click();
-    document.querySelector('.todo-task').classList.replace('hidden', 'show');
+    selected && selected.click();
+    showTodoBox();
   }
 };
 
@@ -93,6 +106,7 @@ const deleteTodo = function() {
     'application/json;charset=UTF-8',
     getToDos
   );
+  hideTodoBox();
 };
 
 const tasksRemainingInTodo = function(todo) {

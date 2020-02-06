@@ -37,6 +37,7 @@ body {
   width: 50vw;
   box-shadow: 0 0 2px 2px grey;
   position: relative;
+  height: auto;
 }
 .hidden {
   transform: scale(0);
@@ -110,7 +111,7 @@ h6 {
   line-height: 5vh;
   font-size: calc(1vw + 0.4em);
   font-weight: 400;
-  padding: 1em 2em;
+  padding: 1em 2em 3em 2em;
   margin-bottom: 5vh;
 }
 
