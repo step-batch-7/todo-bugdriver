@@ -11,7 +11,7 @@
     <script src="./scripts/index.js"></script>
   </head>
   <body>
-    <h1 class="header">KEEP YOUR TODO'S HERE</h1>
+    <h1 class="header">&nbsp;</h1>
     <div class="todoContainer">
       <div class="todo-list">
         <h3>YOUR TODO LIST</h3>
@@ -28,18 +28,13 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="todo-task-container">
         <div class="todo-task hidden">
           <div class="todo-header">
             <h3 id="todo-title"></h3>
             <h6><span id="taskcount"></span> tasks remaining</h6>
             <div class="deleteTodoButton" onclick="deleteTodo()">
-              <img
-                src="./images/delete.png"
-                alt=""
-                class="deleteTodoImg"
-                title="deleteTodo"
-              />
+              <span class="deleteBtnTxt">+</span>
             </div>
           </div>
           <div class="todo-body"></div>

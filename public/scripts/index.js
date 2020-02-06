@@ -69,8 +69,8 @@ const createTaskHTML = function(task) {
       onclick="doneTask('${task.id}')"/>
       <label for="${task.id}"><span class="checkbox"></span>
       <span class="task-name">${task.name}</span></label>
-      <div class="deleteButton" onclick="deleteTask('${task.id}')">
-        <img src="./images/minus.png" alt="" class="deleteTaskImg" />
+      <div class="deleteTaskButton" onclick="deleteTask('${task.id}')">
+        <span class="deleteTaskBtnTxt"> - </span>
       </div>
   </div>`;
 };
