@@ -2,20 +2,22 @@ const request = require('supertest');
 const { app } = require('../lib/handler');
 const fs = require('fs');
 const TODO_FILE_PATH = require('../config').DATA_STORE;
-const expectedTodoRecord = [
-  {
-    id: 'todo1',
-    title: 'Todo1',
-    time: 1580982174979,
-    tasks: [{ id: 'task1', name: 'Task1', done: true, time: 1580982179586 }],
-  },
-  {
-    id: 'todo2',
-    title: 'Todo2',
-    time: 1580982185835,
-    tasks: [{ id: 'task2', name: 'Task1', done: false, time: 1580982189967 }],
-  },
-];
+const getSampleData = function() {
+  return [
+    {
+      id: 'todo1',
+      title: 'Todo1',
+      time: 1580982174979,
+      tasks: [{ id: 'task1', name: 'Task1', done: true, time: 1580982179586 }],
+    },
+    {
+      id: 'todo2',
+      title: 'Todo2',
+      time: 1580982185835,
+      tasks: [{ id: 'task2', name: 'Task1', done: false, time: 1580982189967 }],
+    },
+  ];
+};
 
 describe('GET', () => {
   context('/getTodo', () => {
@@ -24,18 +26,14 @@ describe('GET', () => {
         .get('/getTodo')
         .expect(200)
         .expect('Content-Type', 'application/json', done)
-        .expect(JSON.stringify(expectedTodoRecord));
+        .expect(JSON.stringify(getSampleData()));
     });
   });
 });
 
 describe('POST', () => {
   afterEach(() => {
-    fs.writeFileSync(
-      TODO_FILE_PATH,
-      JSON.stringify(expectedTodoRecord),
-      'utf8'
-    );
+    fs.writeFileSync(TODO_FILE_PATH, JSON.stringify(getSampleData()), 'utf8');
   });
   context('/saveTodo', () => {
     it('should save new todo', done => {
@@ -89,11 +87,7 @@ describe('POST', () => {
 
 describe('/PUT', () => {
   afterEach(() => {
-    fs.writeFileSync(
-      TODO_FILE_PATH,
-      JSON.stringify(expectedTodoRecord),
-      'utf8'
-    );
+    fs.writeFileSync(TODO_FILE_PATH, JSON.stringify(getSampleData()), 'utf8');
   });
   context('/updateTodoTitle', () => {
     it('should update todoId status in given todoId and having given taskId', done => {
