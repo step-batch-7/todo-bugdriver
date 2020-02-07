@@ -48,4 +48,13 @@ describe('POST', () => {
         .expect(/"{'todoId':.*}"/);
     });
   });
+  context('/deleteTodo', () => {
+    it('should delete todo having given todoId', done => {
+      request(app.serve.bind(app))
+        .post('/deleteTodo')
+        .send(`{ "todoId": "todo2" }`)
+        .set('content-type', 'application/json;charset=UTF-8')
+        .expect(200, done);
+    });
+  });
 });
