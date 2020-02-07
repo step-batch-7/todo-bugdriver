@@ -1,5 +1,7 @@
 const request = require('supertest');
 const { app } = require('../lib/handler');
+const fs = require('fs');
+const TODO_FILE_PATH = require('../config').DATA_STORE;
 const expectedTodoRecord = [
   {
     id: 'todo1',
@@ -16,11 +18,34 @@ const expectedTodoRecord = [
 ];
 
 describe('GET', () => {
-  it('should give todoData to user', done => {
-    request(app.serve.bind(app))
-      .get('/getTodo')
-      .expect(200)
-      .expect('Content-Type', 'application/json', done)
-      .expect(JSON.stringify(expectedTodoRecord));
+  context('/getTodo', () => {
+    it('should give todoData to user', done => {
+      request(app.serve.bind(app))
+        .get('/getTodo')
+        .expect(200)
+        .expect('Content-Type', 'application/json', done)
+        .expect(JSON.stringify(expectedTodoRecord));
+    });
+  });
+});
+
+describe('POST', () => {
+  afterEach(() => {
+    fs.writeFileSync(
+      TODO_FILE_PATH,
+      JSON.stringify(expectedTodoRecord),
+      'utf8'
+    );
+  });
+  context('/saveTodo', () => {
+    it('should save new todo', done => {
+      request(app.serve.bind(app))
+        .post('/saveTodo')
+        .send(`{ "title": "hellow" }`)
+        .set('content-type', 'application/json;charset=UTF-8')
+        .expect(201, done)
+        .expect('Content-Type', 'application/json')
+        .expect(/"{'todoId':.*}"/);
+    });
   });
 });
