@@ -57,4 +57,14 @@ describe('POST', () => {
         .expect(200, done);
     });
   });
+  context('/saveTask', () => {
+    it('should delete todo having given todoId', done => {
+      request(app.serve.bind(app))
+        .post('/saveTask')
+        .send(`{"todoId":"todo1","taskName":"testTask"}`)
+        .set('content-type', 'application/json;charset=UTF-8')
+        .expect(201, done)
+        .expect(/"{'taskId':.*}"/);
+    });
+  });
 });
