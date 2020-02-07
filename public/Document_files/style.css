@@ -318,7 +318,6 @@ h6 {
 #todo-title {
   padding: 0 2vw 0 0;
   outline: none;
-  flex-grow: 1;
 }
 #todo-title:focus {
   border-bottom: 1px solid grey;

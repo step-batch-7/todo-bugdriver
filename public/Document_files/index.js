@@ -113,6 +113,7 @@ const deleteTask = function(taskId) {
 const updateTask = function(taskId, taskElement) {
   const todoId = document.querySelector('.todo-task').id;
   const newTaskName = taskElement.innerText;
+  console.log(newTaskName);
   const taskData = { todoId: todoId, taskId: taskId, name: newTaskName };
   putHttpReq(
     '/updateTaskName',

@@ -86,3 +86,22 @@ describe('POST', () => {
     });
   });
 });
+
+describe('/PUT', () => {
+  afterEach(() => {
+    fs.writeFileSync(
+      TODO_FILE_PATH,
+      JSON.stringify(expectedTodoRecord),
+      'utf8'
+    );
+  });
+  context('/updateTodoTitle', () => {
+    it('should update todoId status in given todoId and having given taskId', done => {
+      request(app.serve.bind(app))
+        .put('/updateTodoTitle')
+        .send(`{"todoId":"todo1","title":"newTitle1"}`)
+        .set('content-type', 'application/json;charset=UTF-8')
+        .expect(201, done);
+    });
+  });
+});

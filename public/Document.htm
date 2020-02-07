@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:3000/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Document</title>
+    <link rel="stylesheet" href="./Document_files/style.css">
+    <link href="./Document_files/css" rel="stylesheet">
+    <script src="./Document_files/index.js"></script>
+  </head>
+  <body>
+    <h1 class="header">&nbsp;</h1>
+    <div class="todoContainer">
+      <div class="todo-list">
+        <h3>YOUR TODO's LIST</h3>
+        <ul class="todo-list-items"><li class="todo-list-item selected" id="todo1">First Todo</li></ul>
+        <div class="todo-create">
+          <input type="text" class="new-todo-entry" id="todoentry" placeholder="New Todo...">
+          <div class="create btn" id="createTodo">
+            <a class="btn">+</a>
+          </div>
+        </div>
+      </div>
+      <div class="todo-task-container">
+        <div class="todo-task show" id="todo1">
+          <div class="todo-header">
+            <h3 id="todo-title" contenteditable="true">First Todo</h3>
+            <h6><span id="taskcount">2</span> tasks remaining</h6>
+            <div class="deleteTodoButton" onclick="deleteTodo()">
+              <span class="deleteBtnTxt">+</span>
+            </div>
+          </div>
+          <div class="todo-body">
+  <div class="task">
+    <input type="checkbox" class="checkTask" id="task1" onclick="doneTask(&#39;task1&#39;)">
+      <label for="task1"><span class="checkbox"></span>
+      </label><span class="task-name" contenteditable="true" onblur="updateTask(&#39;task1&#39;,this)">First Task&nbsp;</span>
+      <div class="deleteTaskButton" onclick="deleteTask(&#39;task1&#39;)">
+        <span class="deleteTaskBtnTxt"> - </span>
+      </div>
+  </div>
+  <div class="task">
+    <input type="checkbox" class="checkTask" id="task2" onclick="doneTask(&#39;task2&#39;)">
+      <label for="task2"><span class="checkbox"></span>
+      </label><span class="task-name" contenteditable="true" onblur="updateTask(&#39;task2&#39;,this)">Second Task</span>
+      <div class="deleteTaskButton" onclick="deleteTask(&#39;task2&#39;)">
+        <span class="deleteTaskBtnTxt"> - </span>
+      </div>
+  </div></div>
+          <div class="task-create">
+            <input type="text" class="new-task-entry" id="taskEntry" placeholder="New Task...">
+            <div class="createTask btn" id="createTask">
+              <a class="btn">+</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+</body></html>
