@@ -13,7 +13,7 @@ const expectedTodoRecord = [
     id: 'todo2',
     title: 'Todo2',
     time: 1580982185835,
-    tasks: [{ id: 'task3', name: 'Task1', done: false, time: 1580982189967 }],
+    tasks: [{ id: 'task2', name: 'Task1', done: false, time: 1580982189967 }],
   },
 ];
 
@@ -74,6 +74,15 @@ describe('POST', () => {
         .send(`{"todoId":"todo1","taskId":"task1"}`)
         .set('content-type', 'application/json;charset=UTF-8')
         .expect(200, done);
+    });
+  });
+  context('/updateTaskDoneStatus', () => {
+    it('should update task status in given todoId and having given taskId', done => {
+      request(app.serve.bind(app))
+        .post('/updateTaskDoneStatus')
+        .send(`{"todoId":"todo1","taskId":"task1"}`)
+        .set('content-type', 'application/json;charset=UTF-8')
+        .expect(201, done);
     });
   });
 });
