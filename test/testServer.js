@@ -58,13 +58,22 @@ describe('POST', () => {
     });
   });
   context('/saveTask', () => {
-    it('should delete todo having given todoId', done => {
+    it('should save task in given todoId', done => {
       request(app.serve.bind(app))
         .post('/saveTask')
         .send(`{"todoId":"todo1","taskName":"testTask"}`)
         .set('content-type', 'application/json;charset=UTF-8')
         .expect(201, done)
         .expect(/"{'taskId':.*}"/);
+    });
+  });
+  context('/deleteTask', () => {
+    it('should delete task in given todoId and having given taskId', done => {
+      request(app.serve.bind(app))
+        .post('/deleteTask')
+        .send(`{"todoId":"todo1","taskId":"task1"}`)
+        .set('content-type', 'application/json;charset=UTF-8')
+        .expect(200, done);
     });
   });
 });
