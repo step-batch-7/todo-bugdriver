@@ -174,7 +174,9 @@ const showTodo = function(e) {
 const saveTask = function() {
   const taskEntry = document.getElementById('taskEntry');
   const taskName = taskEntry.value;
-  if (!taskName) return;
+  if (!taskName) {
+    return;
+  }
   const todoId = document.querySelector('.todo-task').id;
   const taskData = { todoId: todoId, taskName: taskName };
   postHttpReq(
@@ -187,7 +189,9 @@ const saveTask = function() {
 };
 const saveTodo = function() {
   const todoEntry = document.getElementById('todoentry');
-  if (!todoEntry.value) return;
+  if (!todoEntry.value) {
+    return;
+  }
   const todoData = { title: todoEntry.value };
   postHttpReq(
     '/saveTodo',
