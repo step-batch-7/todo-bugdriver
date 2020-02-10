@@ -1,9 +1,8 @@
-const searchTodos = function() {
-  const searchText = getElement('todoSearchText');
+const searchTodos = function(searchText) {
   return todoData.filter(todo => {
     return (
-      todo.title.includes('buy') ||
-      todo.tasks.some(task => task.name.includes(searchText.value))
+      todo.title.includes(searchText) ||
+      todo.tasks.some(task => task.name.includes(searchText))
     );
   });
 };
@@ -14,11 +13,16 @@ const createElement = (elementName, className) => {
   return element;
 };
 
-const createTasks = function(tasks) {
+const highlightSearchedText = function(searchedText, text) {
+  const highlightedText = `<span class="searched">${searchedText}</span>`;
+  return text.replace(searchedText, highlightedText);
+};
+
+const createTasks = function(tasks, searchedText) {
   const taskList = createElement('ul');
   tasks.forEach(task => {
     const taskListItem = createElement('li');
-    taskListItem.innerText = task.name;
+    taskListItem.innerHTML = highlightSearchedText(searchedText, task.name);
     taskList.appendChild(taskListItem);
   });
   return taskList;
@@ -28,10 +32,10 @@ const createSearchResultBox = function(todo) {
   const searchResult = createElement('div', 'searchResult');
   const todoTitleBox = createElement('div', 'todoTitleBox');
   const todoTitle = createElement('span', 'todoTitle');
-  todoTitle.innerText = todo.title;
+  todoTitle.innerHTML = highlightSearchedText(this, todo.title);
   todoTitleBox.appendChild(todoTitle);
   const todoTaskBox = createElement('div', 'todoTaskBox');
-  const tasks = createTasks(todo.tasks);
+  const tasks = createTasks(todo.tasks, this);
   todoTaskBox.appendChild(tasks);
   searchResult.appendChild(todoTitleBox);
   searchResult.appendChild(todoTaskBox);
@@ -39,8 +43,11 @@ const createSearchResultBox = function(todo) {
 };
 
 const handleSearch = function() {
-  const searchedTodos = searchTodos();
-  const resultNodes = searchedTodos.map(createSearchResultBox);
+  const searchText = getElement('todoSearchText');
+  const searchedTodos = searchTodos(searchText.value);
+  const resultNodes = searchedTodos.map(
+    createSearchResultBox.bind(searchText.value)
+  );
   const searchResults = document.querySelector('.searchResults');
   searchResults.innerHTML = '';
   resultNodes.forEach(node => searchResults.appendChild(node));
