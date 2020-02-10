@@ -1,8 +1,7 @@
 body {
   font-family: 'Source Sans Pro', sans-serif;
   margin: 0;
-  height: 100vh;
-  width: 100vw;
+  height: 90vh;
 }
 
 body .container {
@@ -342,7 +341,9 @@ h6 {
   width: 0vw;
   height: 100vh;
   border: 1px solid black;
-  transition: width ease-out 200ms;
+  transition: width ease-out 150ms;
+  display: flex;
+  flex-direction: column;
 }
 
 .searchEntry {
@@ -362,9 +363,9 @@ h6 {
   line-height: 0;
 }
 .searchIcon {
-  height: 3em;
-  width: 3em;
-  background-color: grey;
+  height: 4em;
+  width: 4em;
+  background-image: url('../images/todoSearch.png');
 }
 
 #searchBarToggle {
@@ -381,24 +382,32 @@ h6 {
   background-color: rgba(2, 2, 2, 0.9);
 }
 
+#searchBarToggle:checked ~ .searchContainer > label > div {
+  background-image: url('../images/cancel.png');
+}
+
 .searchResults {
   padding: 1em;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .searchResult {
+  font-size: 0;
+}
+
+#searchBarToggle:checked ~ .searchContainer .searchResults > div {
   margin-top: 2vh;
   padding: 1em;
   width: 20vw;
   border: 1px solid gray;
   color: white;
-  font-weight: 100;
+  font-weight: 300;
+  font-size: calc(1vw + 0.4em);
   box-shadow: -1px 0 1px 1px white;
   cursor: pointer;
 }
-
 .searched {
   background-color: lightcoral;
 }
