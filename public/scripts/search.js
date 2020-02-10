@@ -1,3 +1,14 @@
+const closeSearchBar = function() {
+  const searchIcon = document.querySelector('.searchIcon');
+  searchIcon.click();
+};
+
+const openSearchedTodo = function(todoId) {
+  const todoToOpen = getElement(todoId);
+  todoToOpen.click();
+  closeSearchBar();
+};
+
 const searchTodos = function(searchText) {
   return todoData.filter(todo => {
     return (
@@ -23,6 +34,7 @@ const createTasks = function(tasks, searchedText) {
   tasks.forEach(task => {
     const taskListItem = createElement('li');
     taskListItem.innerHTML = highlightSearchedText(searchedText, task.name);
+    task.done && taskListItem.classList.add('doneTodo');
     taskList.appendChild(taskListItem);
   });
   return taskList;
@@ -39,6 +51,7 @@ const createSearchResultBox = function(todo) {
   todoTaskBox.appendChild(tasks);
   searchResult.appendChild(todoTitleBox);
   searchResult.appendChild(todoTaskBox);
+  searchResult.onclick = () => openSearchedTodo(todo.id);
   return searchResult;
 };
 
