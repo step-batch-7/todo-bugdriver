@@ -3,3 +3,4 @@ node_modules
 public/.DS_Store
 .nyc_output/
 data/todoData.json
+data/users.json

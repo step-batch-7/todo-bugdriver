@@ -47,6 +47,7 @@ const fillTodoList = function(todoData) {
     const liElement = document.createElement('li');
     liElement.classList.add('todo-list-item');
     liElement.id = todo.id;
+    liElement.draggable = true;
     liElement.id == selectedTodoId && liElement.classList.add('selected');
     liElement.onclick = () => showTodo(liElement);
     const liTitle = document.createTextNode(todo.title);
@@ -80,7 +81,7 @@ const createTaskHTML = function(task) {
       id="${task.id}" ${task.done ? 'checked' : ''} 
       onclick="doneTask('${task.id}')"/>
       <label for="${task.id}"><span class="checkbox"></span>
-      </label><span class="task-name" contentEditable="true" 
+      </label><span class="task-name" contentEditable="true" draggable="true"
       onblur="updateTask('${task.id}',this)">${task.name}</span>
       <div class="deleteTaskButton" onclick="deleteTask('${task.id}')">
         <span class="deleteTaskBtnTxt"> - </span>

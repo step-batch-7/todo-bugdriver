@@ -349,10 +349,12 @@ h6 {
 .searchEntry {
   height: 3em;
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 #todoSearchText {
-  width: 100%;
-  font-size: calc(1vw);
+  width: 50%;
+  font-size: calc(1vw + 0.4em);
   padding: 1em 0.5em 0.2em;
   color: white;
   margin: 0;
@@ -361,11 +363,13 @@ h6 {
   border-bottom: 1px solid white;
   background: 0;
   line-height: 0;
+  font-weight: 200;
 }
 .searchIcon {
   height: 4em;
   width: 4em;
   background-image: url('../images/todoSearch.png');
+  cursor: pointer;
 }
 
 #searchBarToggle {
