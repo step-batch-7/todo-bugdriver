@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "export DATA_STORE=/Users/step21/rajatwork/JavaScript/todo-bugdriver/test/testDataStore/testTodoData.json;mocha",
-    "start": "export DATA_STORE=/Users/step21/rajatwork/JavaScript/todo-bugdriver/data/todoData.json;export USERS_STORE=/Users/step21/rajatwork/JavaScript/todo-bugdriver/data/users.json;node server.js 3000"
+    "start": "export DATA_STORE=/Users/step21/rajatwork/JavaScript/todo-bugdriver/data/;export USERS_STORE=/Users/step21/rajatwork/JavaScript/todo-bugdriver/data/users.json;node server.js 3000"
   },
   "repository": {
     "type": "git",

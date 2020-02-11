@@ -2,7 +2,11 @@ let todoData = [];
 const xhrGet = function(url, callback) {
   const xhr = new XMLHttpRequest();
   xhr.onload = function() {
+    if (xhr.status == 401) window.location.href = 'login.html';
     callback(this.responseText);
+  };
+  xhr.onerror = function(err) {
+    console.log(err);
   };
   xhr.open('GET', url);
   xhr.send();
@@ -13,7 +17,11 @@ const postHttpReq = function(url, data, contentType, callback) {
   xhr.open('POST', url, true);
   xhr.setRequestHeader('Content-Type', contentType);
   xhr.onload = function() {
+    if (xhr.status == 401) window.location.href = 'login.html';
     callback();
+  };
+  xhr.onerror = function(err) {
+    console.log(err);
   };
   xhr.send(data);
 };
