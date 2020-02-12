@@ -12,6 +12,11 @@ const xhrGet = function(url, callback) {
   xhr.send();
 };
 
+const performLogout = function() {
+  document.cookie = '_SID=; expires=Thu, 18 Dec 2019 12:00:00 UTC';
+  location.assign('login.html');
+};
+
 const postHttpReq = function(url, data, contentType, callback) {
   const xhr = new XMLHttpRequest();
   xhr.open('POST', url, true);
@@ -70,12 +75,13 @@ const mergeTodo = function(event) {
   if (wantToMerge) {
     const newTitle = prompt('Enter New Title for todo');
     const dataToMerge = { firstTodoId, secondTodoId, newTitle };
-    putHttpReq(
-      '/mergeTodo',
-      JSON.stringify(dataToMerge),
-      'application/json;charset=UTF-8',
-      getToDos
-    );
+    newTitle &&
+      putHttpReq(
+        '/mergeTodo',
+        JSON.stringify(dataToMerge),
+        'application/json;charset=UTF-8',
+        getToDos
+      );
   }
 };
 
@@ -290,6 +296,8 @@ const attachListeners = function() {
   const taskEntry = getElement('taskEntry');
   const todoTitle = getElement('todo-title');
   const todoSearchText = getElement('todoSearchText');
+  const logout = getElement('logout');
+  logout.onclick = performLogout;
   todoSearchText.onkeyup = handleSearch;
   todoTitle.onblur = updateTodo;
   createTodoBtn.onclick = saveTodo;

@@ -372,6 +372,19 @@ h6 {
   cursor: pointer;
 }
 
+.searchIcon[data-title]:hover:after {
+  content: attr(data-title);
+  opacity: 1;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 0.5em;
+  right: 4vw;
+  top: 1vh;
+  position: absolute;
+  padding: 0.2vw 0.5vw 0.2vw 0.5vw;
+  transition: all 0.1s ease 0.5s;
+}
+
 #searchBarToggle {
   display: none;
 }
@@ -386,7 +399,7 @@ h6 {
   background-color: rgba(2, 2, 2, 0.9);
 }
 
-#searchBarToggle:checked ~ .searchContainer > label > div {
+#searchBarToggle:checked ~ .searchContainer > div > label > div {
   background-image: url('../images/cancel.png');
 }
 
@@ -430,4 +443,27 @@ h6 {
 
 .editTaskBtnTxt:hover {
   transform: scale(1.1);
+}
+
+.logoutIcon {
+  width: calc(2.5vw + 1em);
+  height: calc(2.5vw + 1em);
+  background-image: url('../images/logout.png');
+  background-size: calc(2.5vw + 1em);
+  cursor: pointer;
+}
+.iconBox {
+  position: relative;
+}
+.logoutIcon[data-title]:hover:after {
+  content: attr(data-title);
+  opacity: 1;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 0.5em;
+  position: absolute;
+  right: 3vw;
+  top: 7vh;
+  padding: 0.2vw 0.5vw 0.2vw 0.5vw;
+  transition: all 0.1s ease 0.5s;
 }
