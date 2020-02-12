@@ -46,16 +46,25 @@ const showTodoBox = function() {
   document.querySelector('.todo-task').classList.replace('hidden', 'show');
 };
 
+const taskDragStart = function(taskId) {
+  const todoId = document.querySelector('.todo-task').id;
+  event.dataTransfer.setData('dragStartFrom', 'task');
+  event.dataTransfer.setData('taskId', taskId);
+  event.dataTransfer.setData('todoId', todoId);
+};
+
 const todoDragStart = function() {
-  event.dataTransfer.setData('text', event.target.id);
+  event.dataTransfer.setData('dragStartFrom', 'todo');
+  event.dataTransfer.setData('todoId', event.target.id);
 };
 
 const todoDragOver = function() {
   event.preventDefault();
   event.dataTransfer.dropEffect = 'copy';
 };
-const todoDrop = function() {
-  const firstTodoId = event.dataTransfer.getData('text');
+
+const mergeTodo = function(event) {
+  const firstTodoId = event.dataTransfer.getData('todoId');
   const secondTodoId = event.target.id;
   const wantToMerge = confirm('do you want to merge');
   if (wantToMerge) {
@@ -67,6 +76,32 @@ const todoDrop = function() {
       'application/json;charset=UTF-8',
       getToDos
     );
+  }
+};
+
+const moveTaskToAnotherTodo = function(event) {
+  const taskId = event.dataTransfer.getData('taskId');
+  const todoId = event.dataTransfer.getData('todoId');
+  const targetTodoId = event.target.id;
+  const wantToMove = confirm('do you want to move Task');
+  if (wantToMove) {
+    const dataToMove = { taskId, todoId, targetTodoId };
+    putHttpReq(
+      '/moveTaskToAnotherTodo',
+      JSON.stringify(dataToMove),
+      'application/json;charset=UTF-8',
+      getToDos
+    );
+  }
+};
+
+const todoDrop = function() {
+  const dragFrom = event.dataTransfer.getData('dragStartFrom');
+  if (dragFrom === 'todo') {
+    mergeTodo(event);
+  }
+  if (dragFrom === 'task') {
+    moveTaskToAnotherTodo(event);
   }
 };
 
@@ -116,7 +151,8 @@ const createTaskHTML = function(task) {
       id="${task.id}" ${task.done ? 'checked' : ''} 
       onclick="doneTask('${task.id}')"/>
       <label for="${task.id}"><span class="checkbox"></span>
-      </label><span class="task-name" draggable="true"
+      </label><span class="task-name" draggable="true" 
+      ondragstart="taskDragStart('${task.id}')"
       onblur="updateTask('${task.id}',this)">${task.name}</span>
       <div class="editTaskButton" onclick="editTask(this)">
        <img src="./images/edit.png" class="editTaskBtnTxt"/>
