@@ -2,5 +2,5 @@ node_modules
 .DS_Store
 public/.DS_Store
 .nyc_output/
-data/todoData.json
-data/users.json
+data/
+

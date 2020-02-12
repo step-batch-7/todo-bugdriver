@@ -46,6 +46,30 @@ const showTodoBox = function() {
   document.querySelector('.todo-task').classList.replace('hidden', 'show');
 };
 
+const todoDragStart = function() {
+  event.dataTransfer.setData('text', event.target.id);
+};
+
+const todoDragOver = function() {
+  event.preventDefault();
+  event.dataTransfer.dropEffect = 'copy';
+};
+const todoDrop = function() {
+  const firstTodoId = event.dataTransfer.getData('text');
+  const secondTodoId = event.target.id;
+  const wantToMerge = confirm('do you want to merge');
+  if (wantToMerge) {
+    const newTitle = prompt('Enter New Title for todo');
+    const dataToMerge = { firstTodoId, secondTodoId, newTitle };
+    putHttpReq(
+      '/mergeTodo',
+      JSON.stringify(dataToMerge),
+      'application/json;charset=UTF-8',
+      getToDos
+    );
+  }
+};
+
 const fillTodoList = function(todoData) {
   const todoListBox = document.querySelector('.todo-list-items');
   const selected = document.querySelector('.selected');
@@ -56,6 +80,9 @@ const fillTodoList = function(todoData) {
     liElement.classList.add('todo-list-item');
     liElement.id = todo.id;
     liElement.draggable = true;
+    liElement.ondragstart = todoDragStart;
+    liElement.ondrop = todoDrop;
+    liElement.ondragover = todoDragOver;
     liElement.id == selectedTodoId && liElement.classList.add('selected');
     liElement.onclick = () => showTodo(liElement);
     const liTitle = document.createTextNode(todo.title);
@@ -89,12 +116,21 @@ const createTaskHTML = function(task) {
       id="${task.id}" ${task.done ? 'checked' : ''} 
       onclick="doneTask('${task.id}')"/>
       <label for="${task.id}"><span class="checkbox"></span>
-      </label><span class="task-name" contentEditable="true" draggable="true"
+      </label><span class="task-name" draggable="true"
       onblur="updateTask('${task.id}',this)">${task.name}</span>
+      <div class="editTaskButton" onclick="editTask(this)">
+       <img src="./images/edit.png" class="editTaskBtnTxt"/>
+      </div>
       <div class="deleteTaskButton" onclick="deleteTask('${task.id}')">
         <span class="deleteTaskBtnTxt"> - </span>
       </div>
   </div>`;
+};
+
+const editTask = function(editElement) {
+  const taskName = editElement.previousElementSibling;
+  taskName.contentEditable = 'true';
+  taskName.focus();
 };
 
 const doneTask = function(taskId) {
