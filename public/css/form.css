@@ -48,3 +48,18 @@ h2 {
 .btn:hover {
   box-shadow: 0.1px 0.1px 0.5px 0.5px grey;
 }
+
+.wrongInput {
+  color: lightcoral;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+#userNameAvailability {
+  position: absolute;
+}
+
+.hidden {
+  display: none;
+}

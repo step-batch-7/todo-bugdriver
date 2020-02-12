@@ -4,39 +4,49 @@
     <meta charset="UTF-8" />
     <title>Document</title>
     <link rel="stylesheet" href="./css/form.css" />
+    <script src="./scripts/signup.js"></script>
   </head>
   <body>
     <div class="container">
       <h2>Sign Up</h2>
       <form action="/signUp" method="POST">
         <div class="formContainer">
-          <input
-            type="text"
-            name="name"
-            class="entry"
-            id="name"
-            placeholder="Name..."
-            autocomplete="off"
-            required
-          />
-          <input
-            type="text"
-            name="userName"
-            class="entry"
-            id="userEntry"
-            placeholder="UserName..."
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            class="entry"
-            id="password"
-            placeholder="Password..."
-            required
-          />
-          <input type="submit" class="btn" value="Sign  Up" />
-          <a href="login.html">Already have an account</a>
+          <div>
+            <input
+              type="text"
+              name="name"
+              class="entry"
+              id="name"
+              placeholder="Name..."
+              autocomplete="off"
+              required
+            />
+          </div>
+
+          <div>
+            <input
+              type="text"
+              name="userName"
+              class="entry"
+              id="userName"
+              placeholder="UserName..."
+              autocomplete="off"
+              required
+            /><span id="userNameAvailability" class="hidden"></span>
+          </div>
+          <div>
+            <input
+              type="password"
+              name="password"
+              class="entry"
+              id="password"
+              placeholder="Password..."
+              required
+            />
+          </div>
+
+          <input type="submit" class="btn" id="submit" value="Sign  Up" />
+          <a href="login.html">Already have an account? LogIn</a>
         </div>
       </form>
     </div>

@@ -297,6 +297,7 @@ const attachListeners = function() {
   const todoTitle = getElement('todo-title');
   const todoSearchText = getElement('todoSearchText');
   const logout = getElement('logout');
+
   logout.onclick = performLogout;
   todoSearchText.onkeyup = handleSearch;
   todoTitle.onblur = updateTodo;
