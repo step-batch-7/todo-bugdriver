@@ -8,14 +8,14 @@ const getSampleData = function() {
       id: 'todo1',
       title: 'Todo1',
       time: 1580982174979,
-      tasks: [{ id: 'task1', name: 'Task1', done: true, time: 1580982179586 }],
+      tasks: [{ id: 'task1', name: 'Task1', done: true, time: 1580982179586 }]
     },
     {
       id: 'todo2',
       title: 'Todo2',
       time: 1580982185835,
-      tasks: [{ id: 'task2', name: 'Task1', done: false, time: 1580982189967 }],
-    },
+      tasks: [{ id: 'task2', name: 'Task1', done: false, time: 1580982189967 }]
+    }
   ];
 };
 
@@ -25,6 +25,7 @@ describe('GET', () => {
       request(app.serve.bind(app))
         .get('/getTodo')
         .expect(200)
+        .set('cookie', '_SID=testSessionId')
         .expect('Content-Type', 'application/json', done)
         .expect(JSON.stringify(getSampleData()));
     });
@@ -33,7 +34,11 @@ describe('GET', () => {
 
 describe('POST', () => {
   afterEach(() => {
-    fs.writeFileSync(TODO_FILE_PATH, JSON.stringify(getSampleData()), 'utf8');
+    fs.writeFileSync(
+      `${TODO_FILE_PATH}/testuser.json`,
+      JSON.stringify(getSampleData()),
+      'utf8'
+    );
   });
   context('/saveTodo', () => {
     it('should save new todo', done => {
@@ -41,6 +46,7 @@ describe('POST', () => {
         .post('/saveTodo')
         .send(`{ "title": "hellow" }`)
         .set('content-type', 'application/json;charset=UTF-8')
+        .set('cookie', '_SID=testSessionId')
         .expect(201, done)
         .expect('Content-Type', 'application/json')
         .expect(/"{'todoId':.*}"/);
@@ -52,6 +58,7 @@ describe('POST', () => {
         .post('/deleteTodo')
         .send(`{ "todoId": "todo2" }`)
         .set('content-type', 'application/json;charset=UTF-8')
+        .set('cookie', '_SID=testSessionId')
         .expect(200, done);
     });
   });
@@ -61,6 +68,7 @@ describe('POST', () => {
         .post('/saveTask')
         .send(`{"todoId":"todo1","taskName":"testTask"}`)
         .set('content-type', 'application/json;charset=UTF-8')
+        .set('cookie', '_SID=testSessionId')
         .expect(201, done)
         .expect(/"{'taskId':.*}"/);
     });
@@ -70,6 +78,7 @@ describe('POST', () => {
       request(app.serve.bind(app))
         .post('/deleteTask')
         .send(`{"todoId":"todo1","taskId":"task1"}`)
+        .set('cookie', '_SID=testSessionId')
         .set('content-type', 'application/json;charset=UTF-8')
         .expect(200, done);
     });
@@ -79,6 +88,7 @@ describe('POST', () => {
       request(app.serve.bind(app))
         .post('/updateTaskDoneStatus')
         .send(`{"todoId":"todo1","taskId":"task1"}`)
+        .set('cookie', '_SID=testSessionId')
         .set('content-type', 'application/json;charset=UTF-8')
         .expect(201, done);
     });
@@ -87,13 +97,18 @@ describe('POST', () => {
 
 describe('/PUT', () => {
   afterEach(() => {
-    fs.writeFileSync(TODO_FILE_PATH, JSON.stringify(getSampleData()), 'utf8');
+    fs.writeFileSync(
+      `${TODO_FILE_PATH}/testuser.json`,
+      JSON.stringify(getSampleData()),
+      'utf8'
+    );
   });
   context('/updateTodoTitle', () => {
     it('should update todoId status in given todoId and having given taskId', done => {
       request(app.serve.bind(app))
         .put('/updateTodoTitle')
         .send(`{"todoId":"todo1","title":"newTitle1"}`)
+        .set('cookie', '_SID=testSessionId')
         .set('content-type', 'application/json;charset=UTF-8')
         .expect(201, done);
     });
