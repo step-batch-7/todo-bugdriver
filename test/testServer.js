@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { app } = require('../lib/handler');
+const { app } = require('../lib/router');
 const fs = require('fs');
 const TODO_FILE_PATH = require('../config').DATA_STORE;
 const getSampleData = function() {
@@ -36,7 +36,7 @@ describe('POST', () => {
   beforeEach(() => {
     fs.writeFileSync(
       `${TODO_FILE_PATH}/testuser.json`,
-      JSON.stringify(getSampleData()),
+      JSON.stringify(getSampleData(), null, 2),
       'utf8'
     );
   });
@@ -99,7 +99,7 @@ describe('/PUT', () => {
   beforeEach(() => {
     fs.writeFileSync(
       `${TODO_FILE_PATH}/testuser.json`,
-      JSON.stringify(getSampleData()),
+      JSON.stringify(getSampleData(), null, 2),
       'utf8'
     );
   });

@@ -1,5 +1,5 @@
 const { createServer } = require('http');
-const { app } = require('./lib/handler');
+const { app } = require('./lib/router');
 
 const server = createServer();
 server.on('request', (req, res) => {
