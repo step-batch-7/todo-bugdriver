@@ -9,6 +9,7 @@ server.on('request', (req, res) => {
     console.error(err);
   }
 });
+
 server.on('error', err => console.log('error occured in server', err));
 
 server.listen(process.argv[2], () =>

@@ -5,16 +5,16 @@ const TODO_FILE_PATH = require('../config').DATA_STORE;
 const getSampleData = function() {
   return [
     {
-      id: 'todo1',
-      title: 'Todo1',
+      id: 'todo_1',
+      title: 'newTitle1',
       time: 1580982174979,
-      tasks: [{ id: 'task1', name: 'Task1', done: true, time: 1580982179586 }]
+      tasks: [{ id: 'task_1', name: 'Task1', done: true, time: 1580982179586 }]
     },
     {
-      id: 'todo2',
+      id: 'todo_2',
       title: 'Todo2',
       time: 1580982185835,
-      tasks: [{ id: 'task2', name: 'Task1', done: false, time: 1580982189967 }]
+      tasks: [{ id: 'task_2', name: 'Task1', done: false, time: 1580982189967 }]
     }
   ];
 };
@@ -33,7 +33,7 @@ describe('GET', () => {
 });
 
 describe('POST', () => {
-  afterEach(() => {
+  beforeEach(() => {
     fs.writeFileSync(
       `${TODO_FILE_PATH}/testuser.json`,
       JSON.stringify(getSampleData()),
@@ -49,14 +49,14 @@ describe('POST', () => {
         .set('cookie', '_SID=testSessionId')
         .expect(201, done)
         .expect('Content-Type', 'application/json')
-        .expect(/"{'todoId':.*}"/);
+        .expect(/"{'todoId':todo_3}"/);
     });
   });
   context('/deleteTodo', () => {
     it('should delete todo having given todoId', done => {
       request(app.serve.bind(app))
         .post('/deleteTodo')
-        .send(`{ "todoId": "todo2" }`)
+        .send(`{ "todoId": "todo_2" }`)
         .set('content-type', 'application/json;charset=UTF-8')
         .set('cookie', '_SID=testSessionId')
         .expect(200, done);
@@ -66,18 +66,18 @@ describe('POST', () => {
     it('should save task in given todoId', done => {
       request(app.serve.bind(app))
         .post('/saveTask')
-        .send(`{"todoId":"todo1","taskName":"testTask"}`)
+        .send(`{"todoId":"todo_1","taskName":"testTask"}`)
         .set('content-type', 'application/json;charset=UTF-8')
         .set('cookie', '_SID=testSessionId')
         .expect(201, done)
-        .expect(/"{'taskId':.*}"/);
+        .expect(/"{'taskId':task_3}"/);
     });
   });
   context('/deleteTask', () => {
     it('should delete task in given todoId and having given taskId', done => {
       request(app.serve.bind(app))
         .post('/deleteTask')
-        .send(`{"todoId":"todo1","taskId":"task1"}`)
+        .send(`{"todoId":"todo_1","taskId":"task_1"}`)
         .set('cookie', '_SID=testSessionId')
         .set('content-type', 'application/json;charset=UTF-8')
         .expect(200, done);
@@ -87,7 +87,7 @@ describe('POST', () => {
     it('should update task status in given todoId and having given taskId', done => {
       request(app.serve.bind(app))
         .post('/updateTaskDoneStatus')
-        .send(`{"todoId":"todo1","taskId":"task1"}`)
+        .send(`{"todoId":"todo_1","taskId":"task_1"}`)
         .set('cookie', '_SID=testSessionId')
         .set('content-type', 'application/json;charset=UTF-8')
         .expect(201, done);
@@ -96,7 +96,7 @@ describe('POST', () => {
 });
 
 describe('/PUT', () => {
-  afterEach(() => {
+  beforeEach(() => {
     fs.writeFileSync(
       `${TODO_FILE_PATH}/testuser.json`,
       JSON.stringify(getSampleData()),
@@ -107,7 +107,7 @@ describe('/PUT', () => {
     it('should update todoId status in given todoId and having given taskId', done => {
       request(app.serve.bind(app))
         .put('/updateTodoTitle')
-        .send(`{"todoId":"todo1","title":"newTitle1"}`)
+        .send(`{"todoId":"todo_1","title":"newTitle1"}`)
         .set('cookie', '_SID=testSessionId')
         .set('content-type', 'application/json;charset=UTF-8')
         .expect(201, done);

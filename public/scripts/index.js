@@ -319,4 +319,5 @@ const main = function() {
   getToDos();
   attachListeners();
 };
+
 window.onload = main;
