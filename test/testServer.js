@@ -1,45 +1,68 @@
 const request = require('supertest');
 const { app } = require('../lib/router');
-
+const sinon = require('sinon');
 const fs = require('fs');
 const TODO_FILE_PATH = require('../config').DATA_STORE;
 const getSampleData = function() {
-  return [
-    {
-      id: 'todo_1',
-      title: 'newTitle1',
-      time: 1580982174979,
-      tasks: [{ id: 'task_1', name: 'Task1', done: true, time: 1580982179586 }]
-    },
-    {
-      id: 'todo_2',
-      title: 'Todo2',
-      time: 1580982185835,
-      tasks: [{ id: 'task_2', name: 'Task1', done: false, time: 1580982189967 }]
-    }
-  ];
+  return {
+    testuser: [
+      {
+        id: 'todo_1',
+        title: 'newTitle1',
+        time: 1580982174979,
+        tasks: [
+          { id: 'task_1', name: 'Task1', done: true, time: 1580982179586 }
+        ]
+      },
+      {
+        id: 'todo_2',
+        title: 'Todo2',
+        time: 1580982185835,
+        tasks: [
+          { id: 'task_2', name: 'Task1', done: false, time: 1580982189967 }
+        ]
+      }
+    ]
+  };
 };
 
 describe('GET', () => {
   context('/getTodo', () => {
     it('should give todoData to user', done => {
+      const expectedData = [
+        {
+          id: 'todo_1',
+          title: 'newTitle1',
+          time: 1580982174979,
+          tasks: [
+            { id: 'task_1', name: 'Task1', done: true, time: 1580982179586 }
+          ]
+        },
+        {
+          id: 'todo_2',
+          title: 'Todo2',
+          time: 1580982185835,
+          tasks: [
+            { id: 'task_2', name: 'Task1', done: false, time: 1580982189967 }
+          ]
+        }
+      ];
       request(app)
         .get('/getTodo')
         .expect(200)
         .set('cookie', '_SID=testSessionId')
         .expect('Content-Type', 'application/json', done)
-        .expect(JSON.stringify(getSampleData()));
+        .expect(JSON.stringify(expectedData));
     });
   });
 });
 
 describe('POST', () => {
   beforeEach(() => {
-    fs.writeFileSync(
-      `${TODO_FILE_PATH}/testuser.json`,
-      JSON.stringify(getSampleData(), null, 2),
-      'utf8'
-    );
+    sinon.replace(fs, 'writeFileSync', sinon.fake());
+  });
+  afterEach(() => {
+    sinon.restore();
   });
   context('/saveTodo', () => {
     it('should save new todo', done => {
@@ -51,6 +74,16 @@ describe('POST', () => {
         .expect(201, done)
         .expect('Content-Type', 'application/json')
         .expect(/"{'noOfTodos':todo_3}"/);
+    });
+  });
+  context('/updateTaskDoneStatus', () => {
+    it('should update task status in given todoId and having given taskId', done => {
+      request(app)
+        .post('/updateTaskDoneStatus')
+        .send(`{"todoId":"todo_1","taskId":"task_1"}`)
+        .set('cookie', '_SID=testSessionId')
+        .set('content-type', 'application/json;charset=UTF-8')
+        .expect(201, done);
     });
   });
   context('/deleteTodo', () => {
@@ -84,25 +117,14 @@ describe('POST', () => {
         .expect(200, done);
     });
   });
-  context('/updateTaskDoneStatus', () => {
-    it('should update task status in given todoId and having given taskId', done => {
-      request(app)
-        .post('/updateTaskDoneStatus')
-        .send(`{"todoId":"todo_1","taskId":"task_1"}`)
-        .set('cookie', '_SID=testSessionId')
-        .set('content-type', 'application/json;charset=UTF-8')
-        .expect(201, done);
-    });
-  });
 });
 
 describe('/PUT', () => {
   beforeEach(() => {
-    fs.writeFileSync(
-      `${TODO_FILE_PATH}/testuser.json`,
-      JSON.stringify(getSampleData(), null, 2),
-      'utf8'
-    );
+    sinon.replace(fs, 'writeFileSync', sinon.fake());
+  });
+  afterEach(() => {
+    sinon.restore();
   });
   context('/updateTodoTitle', () => {
     it('should update todoId status in given todoId and having given taskId', done => {
