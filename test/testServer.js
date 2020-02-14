@@ -1,6 +1,7 @@
 const request = require('supertest');
 const { app } = require('../lib/router');
 const sinon = require('sinon');
+const sessions = require('../lib/sesson');
 const fs = require('fs');
 const TODO_FILE_PATH = require('../config').DATA_STORE;
 const getSampleData = function() {
@@ -27,6 +28,18 @@ const getSampleData = function() {
 };
 
 describe('GET', () => {
+  beforeEach(() => {
+    const fakeCreateSession = function(userName) {
+      const sessionId = 'testSessionId';
+      this.setAttribute(sessionId, userName);
+      return sessionId;
+    };
+    sinon.replace(sessions, 'createSession', fakeCreateSession);
+    sessions.createSession('testuser');
+  });
+  afterEach(() => {
+    sinon.restore();
+  });
   context('/getTodo', () => {
     it('should give todoData to user', done => {
       const expectedData = [
@@ -60,6 +73,13 @@ describe('GET', () => {
 describe('POST', () => {
   beforeEach(() => {
     sinon.replace(fs, 'writeFileSync', sinon.fake());
+    const fakeCreateSession = function(userName) {
+      const sessionId = 'testSessionId';
+      this.setAttribute(sessionId, userName);
+      return sessionId;
+    };
+    sinon.replace(sessions, 'createSession', fakeCreateSession);
+    sessions.createSession('testuser');
   });
   afterEach(() => {
     sinon.restore();
