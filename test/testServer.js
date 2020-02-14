@@ -49,7 +49,7 @@ describe('POST', () => {
         .set('cookie', '_SID=testSessionId')
         .expect(201, done)
         .expect('Content-Type', 'application/json')
-        .expect(/"{'todoId':todo_3}"/);
+        .expect(/"{'noOfTodos':todo_3}"/);
     });
   });
   context('/deleteTodo', () => {
