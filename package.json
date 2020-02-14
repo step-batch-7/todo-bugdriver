@@ -7,15 +7,18 @@
     "lib": "lib",
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "nodemon": "^2.0.2"
+  },
   "devDependencies": {
     "chai": "^4.2.0",
+    "express": "^4.17.1",
     "mocha": "^7.0.1",
     "supertest": "^4.0.2"
   },
   "scripts": {
     "test": "export DATA_STORE=./test/testDataStore/;export TEST_SESSION=testuser;export USERS_STORE=./test/testuser.json;mocha",
-    "start": "export DATA_STORE=./data/usersTodoData/;export USERS_STORE=./data/users.json;node server.js 3000"
+    "start": "export DATA_STORE=./data/usersTodoData/;export USERS_STORE=./data/users.json;nodemon server.js 3000"
   },
   "repository": {
     "type": "git",

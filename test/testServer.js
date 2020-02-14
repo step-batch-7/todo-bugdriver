@@ -1,5 +1,6 @@
 const request = require('supertest');
 const { app } = require('../lib/router');
+
 const fs = require('fs');
 const TODO_FILE_PATH = require('../config').DATA_STORE;
 const getSampleData = function() {
@@ -22,7 +23,7 @@ const getSampleData = function() {
 describe('GET', () => {
   context('/getTodo', () => {
     it('should give todoData to user', done => {
-      request(app.serve.bind(app))
+      request(app)
         .get('/getTodo')
         .expect(200)
         .set('cookie', '_SID=testSessionId')
@@ -42,7 +43,7 @@ describe('POST', () => {
   });
   context('/saveTodo', () => {
     it('should save new todo', done => {
-      request(app.serve.bind(app))
+      request(app)
         .post('/saveTodo')
         .send(`{ "title": "hellow" }`)
         .set('content-type', 'application/json;charset=UTF-8')
@@ -54,7 +55,7 @@ describe('POST', () => {
   });
   context('/deleteTodo', () => {
     it('should delete todo having given todoId', done => {
-      request(app.serve.bind(app))
+      request(app)
         .post('/deleteTodo')
         .send(`{ "todoId": "todo_2" }`)
         .set('content-type', 'application/json;charset=UTF-8')
@@ -64,7 +65,7 @@ describe('POST', () => {
   });
   context('/saveTask', () => {
     it('should save task in given todoId', done => {
-      request(app.serve.bind(app))
+      request(app)
         .post('/saveTask')
         .send(`{"todoId":"todo_1","taskName":"testTask"}`)
         .set('content-type', 'application/json;charset=UTF-8')
@@ -75,7 +76,7 @@ describe('POST', () => {
   });
   context('/deleteTask', () => {
     it('should delete task in given todoId and having given taskId', done => {
-      request(app.serve.bind(app))
+      request(app)
         .post('/deleteTask')
         .send(`{"todoId":"todo_1","taskId":"task_1"}`)
         .set('cookie', '_SID=testSessionId')
@@ -85,7 +86,7 @@ describe('POST', () => {
   });
   context('/updateTaskDoneStatus', () => {
     it('should update task status in given todoId and having given taskId', done => {
-      request(app.serve.bind(app))
+      request(app)
         .post('/updateTaskDoneStatus')
         .send(`{"todoId":"todo_1","taskId":"task_1"}`)
         .set('cookie', '_SID=testSessionId')
@@ -105,7 +106,7 @@ describe('/PUT', () => {
   });
   context('/updateTodoTitle', () => {
     it('should update todoId status in given todoId and having given taskId', done => {
-      request(app.serve.bind(app))
+      request(app)
         .put('/updateTodoTitle')
         .send(`{"todoId":"todo_1","title":"newTitle1"}`)
         .set('cookie', '_SID=testSessionId')
