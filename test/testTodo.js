@@ -49,12 +49,13 @@ describe('Todo', function() {
   describe('getTask', function() {
     it('should give task having given taskId', function() {
       const todo = new Todo(1, 'todoTitle', '2020-01-13T12:26:55.093Z');
-      todo.addNewTask(1, 'name', false, '2020-02-13T12:26:55.093Z');
+      todo.addNewTask(1, 'name', false, '2020-02-13T12:26:55.093Z', '');
       assert.deepEqual(todo.getTask(1), {
         id: 1,
         name: 'name',
         done: false,
-        time: '2020-02-13T12:26:55.093Z'
+        time: '2020-02-13T12:26:55.093Z',
+        expiryDate: ''
       });
     });
   });
@@ -62,13 +63,14 @@ describe('Todo', function() {
   describe('deleteTask', function() {
     it('should delete Task having given taskId', function() {
       const todo = new Todo(1, 'todoTitle', '2020-01-13T12:26:55.093Z');
-      todo.addNewTask(1, 'name', false, '2020-02-13T12:26:55.093Z');
+      todo.addNewTask(1, 'name', false, '2020-02-13T12:26:55.093Z', '');
       assert.deepEqual(todo.deleteTask(1), [
         {
           id: 1,
           name: 'name',
           done: false,
-          time: '2020-02-13T12:26:55.093Z'
+          time: '2020-02-13T12:26:55.093Z',
+          expiryDate: ''
         }
       ]);
     });

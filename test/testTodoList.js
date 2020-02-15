@@ -43,6 +43,20 @@ describe('TodoList', () => {
       assert.strictEqual(todoList.deleteTodo('todo_1'), 0);
     });
   });
+  context('addExpiryDateToTask ', () => {
+    it('Should add the task expiry date in given todo', () => {
+      const todoList = new TodoList();
+      const todo = new Todo('todo_1', 'todoTitle1', '2020-02-13T12:26:55.093Z');
+      todo.addTask(
+        new Task('task_1', 'newTask', false, '2020-02-13T12:26:55.093Z', '')
+      );
+      todoList.addExistingTodo(todo);
+      assert.strictEqual(
+        todoList.addExpiryDateToTask('todo_1', 'task_1', '2020-02-15'),
+        '2020-02-15'
+      );
+    });
+  });
   context('changeTaskStatus', () => {
     it('Should change the task status from given todo', () => {
       const todoList = new TodoList();

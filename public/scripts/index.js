@@ -132,9 +132,30 @@ const fillTodoList = function(todoData) {
   });
 };
 
+const markExpiredTasks = function(todoData) {
+  return todoData.map(todo => {
+    todo.tasks.map(task => {
+      if (!task.expiryDate) return task;
+      const currentDate = new Date().getTime() - 86400000;
+      const expiryDateOfTask = new Date(task.expiryDate).getTime();
+      task.expiryDate =
+        currentDate > expiryDateOfTask
+          ? `<span class="expiredTask">${new Date(
+              task.expiryDate
+            ).toDateString()}</span>`
+          : new Date(task.expiryDate).toDateString();
+
+      return task;
+    });
+    return todo;
+  });
+};
+
 const getToDos = function() {
   xhrGet('/getTodo', todoDataJSON => {
     todoData = JSON.parse(todoDataJSON);
+    todoData = markExpiredTasks(todoData);
+    console.log(todoData);
     fillTodoList(todoData);
     openFirstTodo();
   });
@@ -160,6 +181,16 @@ const createTaskHTML = function(task) {
       </label><span class="task-name" draggable="true" 
       ondragstart="taskDragStart('${task.id}')"
       onblur="updateTask('${task.id}',this)">${task.name}</span>
+      <div> <span class="expiryDate" >${task.expiryDate}</span> </div>
+      <div class="dueTaskButton">
+        <input type="checkbox" id="reminder${task.id}" class="checkReminder"/>
+        <label for="reminder${task.id}">
+          <div class="dueTaskBtnTxt"></div>
+          <input type="date" id="reminderDate" 
+          onblur="dueTask(this,'${task.id}')" 
+          name="reminderDate" class="reminderDate">
+        </label>
+      </div>
       <div class="editTaskButton" onclick="editTask(this)">
        <img src="./images/edit.png" class="editTaskBtnTxt"/>
       </div>
@@ -167,6 +198,20 @@ const createTaskHTML = function(task) {
         <span class="deleteTaskBtnTxt"> - </span>
       </div>
   </div>`;
+};
+
+const dueTask = function(dueDateEntry, taskId) {
+  const expiryDate = dueDateEntry.value;
+  if (expiryDate.length !== 0) {
+    const todoId = document.querySelector('.todo-task').id;
+    const taskData = { todoId, taskId, expiryDate };
+    putHttpReq(
+      '/setExpiryDate',
+      JSON.stringify(taskData),
+      'application/json;charset=UTF-8',
+      getToDos
+    );
+  }
 };
 
 const editTask = function(editElement) {
@@ -177,7 +222,7 @@ const editTask = function(editElement) {
 
 const doneTask = function(taskId) {
   const todoId = document.querySelector('.todo-task').id;
-  const taskData = { todoId: todoId, taskId: taskId };
+  const taskData = { todoId, taskId };
   postHttpReq(
     '/updateTaskDoneStatus',
     JSON.stringify(taskData),

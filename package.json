@@ -18,7 +18,7 @@
   },
   "scripts": {
     "test": "export DATA_STORE=./test/testDataStore/testTodoData.json;export USERS_STORE=./test/testuser.json;mocha",
-    "start": "export DATA_STORE=./data/todoData.json;export USERS_STORE=./data/users.json;nodemon -i data server.js 3000"
+    "start": "export DATA_STORE=./data/todoData.json;export USERS_STORE=./data/users.json;nodemon -i public -i data server.js 3000"
   },
   "repository": {
     "type": "git",

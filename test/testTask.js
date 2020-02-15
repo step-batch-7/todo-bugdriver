@@ -20,6 +20,13 @@ describe('Task', function() {
     });
   });
 
+  describe('setExpiry', function() {
+    it('should set the expiry date of existing task', function() {
+      const task = new Task(1, 'work', false, '2020-02-13T12:26:55.093Z');
+      assert.strictEqual(task.setExpiry('2020-02-15'), '2020-02-15');
+    });
+  });
+
   describe('changeDoneStatus', function() {
     it('should give true when the task is done', function() {
       const task = new Task(1, 'work', false, '2020-02-13T12:26:55.093Z');

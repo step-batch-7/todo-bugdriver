@@ -162,6 +162,7 @@ h6 {
 }
 .task {
   display: flex;
+  justify-content: center;
   margin-bottom: 1.25em;
   position: relative;
 }
@@ -438,11 +439,28 @@ h6 {
 
 .editTaskBtnTxt {
   height: 3vh;
+  padding: 1.1vh 0;
   cursor: pointer;
 }
 
 .editTaskBtnTxt:hover {
   transform: scale(1.1);
+}
+
+.dueTaskButton {
+  height: 5vh;
+}
+
+.editTaskButton {
+  height: 5vh;
+}
+
+.dueTaskBtnTxt {
+  height: 5vh;
+  width: 5vh;
+  cursor: pointer;
+  background-size: contain;
+  background-image: url('../images/reminder.png');
 }
 
 .logoutIcon {
@@ -462,8 +480,43 @@ h6 {
   border: 1px solid black;
   border-radius: 0.5em;
   position: absolute;
-  right: 3vw;
-  top: 7vh;
+  right: 3em;
+  top: 7em;
   padding: 0.2vw 0.5vw 0.2vw 0.5vw;
   transition: all 0.1s ease 0.5s;
+}
+
+.checkReminder {
+  display: none;
+}
+.checkReminder:checked + label > div {
+  margin-top: 0.45em;
+  margin-right: 0.32em;
+  height: 3vh;
+  width: 3vh;
+  background-image: url('../images/cancel.png');
+}
+.checkReminder:checked + label > input {
+  display: inline;
+  position: absolute;
+  right: 7vw;
+  top: 1.5vh;
+}
+.reminderDate {
+  display: none;
+  font-size: calc(0.4vw + 0.3em);
+}
+
+.expiryDate {
+  font-size: calc(0.3vw + 0.3em);
+  width: 7vw;
+  padding-right: 1.2em;
+  font-weight: 100;
+  display: flex;
+  justify-content: flex-end;
+  color: green;
+}
+
+.expiredTask {
+  color: red;
 }
