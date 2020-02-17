@@ -54,13 +54,13 @@ const showTodoBox = function() {
 const taskDragStart = function(taskId) {
   const todoId = document.querySelector('.todo-task').id;
   event.dataTransfer.setData('dragStartFrom', 'task');
-  event.dataTransfer.setData('taskId', taskId);
-  event.dataTransfer.setData('todoId', todoId);
+  localStorage.setItem('taskId', taskId);
+  localStorage.setItem('todoId', todoId);
 };
 
 const todoDragStart = function() {
   event.dataTransfer.setData('dragStartFrom', 'todo');
-  event.dataTransfer.setData('todoId', event.target.id);
+  localStorage.setItem('firstTodoId', event.target.id);
 };
 
 const todoDragOver = function() {
@@ -68,43 +68,26 @@ const todoDragOver = function() {
   event.dataTransfer.dropEffect = 'copy';
 };
 
-const mergeTodo = function(event) {
-  const firstTodoId = event.dataTransfer.getData('todoId');
-  const secondTodoId = event.target.id;
-  const wantToMerge = confirm('do you want to merge');
-  if (wantToMerge) {
-    const newTitle = prompt('Enter New Title for todo');
-    const dataToMerge = { firstTodoId, secondTodoId, newTitle };
-    newTitle &&
-      putHttpReq(
-        '/mergeTodo',
-        JSON.stringify(dataToMerge),
-        'application/json;charset=UTF-8',
-        getToDos
-      );
-  }
+const openMergeTodoBox = function(event) {
+  localStorage.setItem('secondTodoId', event.target.id);
+  const mergeTodoBox = document.querySelector('.merge-todo-box');
+  mergeTodoBox.classList.remove('hidden');
+  const outerBox = document.querySelector('.container');
+  outerBox.classList.add('blur');
 };
 
 const moveTaskToAnotherTodo = function(event) {
-  const taskId = event.dataTransfer.getData('taskId');
-  const todoId = event.dataTransfer.getData('todoId');
-  const targetTodoId = event.target.id;
-  const wantToMove = confirm('do you want to move Task');
-  if (wantToMove) {
-    const dataToMove = { taskId, todoId, targetTodoId };
-    putHttpReq(
-      '/moveTaskToAnotherTodo',
-      JSON.stringify(dataToMove),
-      'application/json;charset=UTF-8',
-      getToDos
-    );
-  }
+  localStorage.setItem('targetId', event.target.id);
+  const confirmBox = document.querySelector('.confirm-box');
+  const outerBox = document.querySelector('.container');
+  confirmBox.classList.remove('hidden');
+  outerBox.classList.add('blur');
 };
 
 const todoDrop = function() {
   const dragFrom = event.dataTransfer.getData('dragStartFrom');
   if (dragFrom === 'todo') {
-    mergeTodo(event);
+    openMergeTodoBox(event);
   }
   if (dragFrom === 'task') {
     moveTaskToAnotherTodo(event);
@@ -215,7 +198,9 @@ const dueTask = function(dueDateEntry, taskId) {
 };
 
 const editTask = function(editElement) {
-  const taskName = editElement.previousElementSibling;
+  const taskName =
+    editElement.previousElementSibling.previousElementSibling
+      .previousElementSibling;
   taskName.contentEditable = 'true';
   taskName.focus();
 };
@@ -334,6 +319,48 @@ const saveTodo = function() {
   todoEntry.value = '';
 };
 
+const closeConfirmBox = function() {
+  const confirmBox = document.querySelector('.confirm-box');
+  const outerBox = document.querySelector('.container');
+  confirmBox.classList.add('hidden');
+  outerBox.classList.remove('blur');
+};
+
+const moveTask = function() {
+  const taskId = localStorage.getItem('taskId');
+  const todoId = localStorage.getItem('todoId');
+  const targetTodoId = localStorage.getItem('targetId');
+  const dataToMove = { taskId, todoId, targetTodoId };
+  putHttpReq(
+    '/moveTaskToAnotherTodo',
+    JSON.stringify(dataToMove),
+    'application/json;charset=UTF-8',
+    getToDos
+  );
+  closeConfirmBox();
+};
+
+const closeMergeBox = function() {
+  const mergeTodoBox = document.querySelector('.merge-todo-box');
+  const outerBox = document.querySelector('.container');
+  mergeTodoBox.classList.add('hidden');
+  outerBox.classList.remove('blur');
+};
+
+const mergeTodo = function() {
+  const firstTodoId = localStorage.getItem('firstTodoId');
+  const secondTodoId = localStorage.getItem('secondTodoId');
+  const newTitle = getElement('new-title').value;
+  const dataToMerge = { firstTodoId, secondTodoId, newTitle };
+  putHttpReq(
+    '/mergeTodo',
+    JSON.stringify(dataToMerge),
+    'application/json;charset=UTF-8',
+    getToDos
+  );
+  closeMergeBox();
+};
+
 const attachListeners = function() {
   const createTaskBtn = getElement('createTask');
   const createTodoBtn = getElement('createTodo');
@@ -342,6 +369,21 @@ const attachListeners = function() {
   const todoTitle = getElement('todo-title');
   const todoSearchText = getElement('todoSearchText');
   const logout = getElement('logout');
+  const confirm = getElement('confirm');
+  const cancel = getElement('cancel');
+  const confirmMerge = getElement('confirm-merge');
+  const cancelMerge = getElement('cancel-merge');
+  const mergeTitleInput = getElement('new-title');
+
+  confirm.onclick = moveTask;
+  cancel.onclick = closeConfirmBox;
+  confirmMerge.onclick = mergeTodo;
+  cancelMerge.onclick = closeMergeBox;
+  mergeTitleInput.onkeyup = function(event) {
+    if (event.keyCode == 13) {
+      mergeTodo();
+    }
+  };
 
   logout.onclick = performLogout;
   todoSearchText.onkeyup = handleSearch;

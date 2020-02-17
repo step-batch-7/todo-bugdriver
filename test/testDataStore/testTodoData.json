@@ -5,7 +5,13 @@
       "title": "newTitle1",
       "time": 1580982174979,
       "tasks": [
-        { "id": "task_1", "name": "Task1", "done": true, "time": 1580982179586 }
+        {
+          "id": "task_1",
+          "name": "Task1",
+          "done": true,
+          "time": 1580982179586,
+          "expiryDate": ""
+        }
       ]
     },
     {
@@ -17,7 +23,8 @@
           "id": "task_2",
           "name": "Task1",
           "done": false,
-          "time": 1580982189967
+          "time": 1580982189967,
+          "expiryDate": ""
         }
       ]
     }

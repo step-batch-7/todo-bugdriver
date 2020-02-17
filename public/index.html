@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>Document</title>
     <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/popup.css" />
     <link
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600&display=swap"
       rel="stylesheet"
@@ -71,6 +72,32 @@
           />
         </div>
         <div class="searchResults"></div>
+      </div>
+    </div>
+
+    <div class="confirm-box hidden">
+      <div class="message"><span>Do you want to move task?</span></div>
+      <div class="buttons">
+        <div class="cancel" id="cancel"><img src="./images/cancel.png" /></div>
+        <div class="confirm" id="confirm"><img src="./images/check.png" /></div>
+      </div>
+    </div>
+
+    <div class="merge-todo-box hidden">
+      <div class="message"><span>Enter title to merge Todo</span></div>
+      <input
+        type="text"
+        class="new-title-entry"
+        id="new-title"
+        placeholder="Enter title..."
+      />
+      <div class="buttons">
+        <div class="cancel" id="cancel-merge">
+          <img src="./images/cancel.png" />
+        </div>
+        <div class="confirm" id="confirm-merge">
+          <img src="./images/check.png" />
+        </div>
       </div>
     </div>
   </body>

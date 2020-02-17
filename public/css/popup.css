@@ -1,0 +1,65 @@
+.confirm-box,
+.merge-todo-box {
+  position: absolute;
+  left: 41.5vw;
+  top: 34vh;
+  border: 1px solid #000;
+  padding-top: 1em;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  transition: transform ease-out 200ms;
+}
+.message {
+  font-size: calc(1vw + 0.5em);
+  text-align: center;
+}
+.buttons {
+  position: relative;
+  display: flex;
+  padding: 2em;
+  width: 17vw;
+  height: 4vh;
+}
+.cancel,
+.confirm {
+  position: absolute;
+  background-size: contain;
+  height: 4vh;
+  border-radius: 50%;
+  width: 4vh;
+  cursor: pointer;
+}
+.cancel {
+  left: 4vw;
+  background-color: red;
+}
+.confirm {
+  right: 4vw;
+  background-color: green;
+}
+
+.buttons > div > img {
+  height: inherit;
+  width: inherit;
+  filter: invert(1);
+}
+.cancel:hover,
+.confirm:hover {
+  transform: scale(1.1);
+}
+
+.blur {
+  filter: blur(15px);
+  pointer-events: none;
+}
+.new-title-entry {
+  font-size: calc(0.5vw + 0.5em);
+  width: 75%;
+  margin-top: 3vh;
+  padding: 0.2em 0 0 0.4em;
+  outline: none;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid black;
+}
