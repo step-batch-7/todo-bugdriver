@@ -88,6 +88,7 @@
   height: inherit;
   width: inherit;
 }
+
 .merge-button {
   margin-top: 1.5em;
   width: 7vw;
@@ -95,6 +96,12 @@
   text-align: center;
   padding: 0.2em;
   cursor: pointer;
+  color: rgb(4, 192, 4);
+  background-color: white;
+  border: 1px solid rgb(4, 192, 4);
+}
+
+.merge-button:hover {
   color: white;
   background-color: rgb(4, 192, 4);
 }

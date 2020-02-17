@@ -6,7 +6,7 @@ body {
 
 body .container {
   height: 100%;
-  padding-top: 10vh;
+  padding-top: 2vh;
 }
 
 .header {
@@ -519,4 +519,17 @@ h6 {
 
 .expiredTask {
   color: red;
+}
+
+.header-title {
+  font-weight: 300;
+  padding: 0 2vw;
+}
+
+.header-title::before {
+  content: '|';
+  font-size: calc(1vh + 1em);
+  position: absolute;
+  left: 0.5vw;
+  top: 0.8rem;
 }

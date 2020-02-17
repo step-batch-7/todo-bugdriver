@@ -171,7 +171,9 @@ const createTaskHTML = function(task) {
           <div class="dueTaskBtnTxt"></div>
           <input type="date" id="reminderDate" 
           onblur="dueTask(this,'${task.id}')" 
-          name="reminderDate" class="reminderDate">
+          name="reminderDate" class="reminderDate" min="${
+            new Date().toISOString().split('T')[0]
+          }">
         </label>
       </div>
       <div class="editTaskButton" onclick="editTask(this)">
