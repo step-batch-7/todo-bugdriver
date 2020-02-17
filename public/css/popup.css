@@ -5,13 +5,11 @@
   top: 34vh;
   border: 1px solid #000;
   padding-top: 1em;
-  display: flex;
   align-items: center;
-  flex-direction: column;
   transition: transform ease-out 200ms;
 }
 .message {
-  font-size: calc(1vw + 0.5em);
+  font-size: calc(0.8vw + 0.5em);
   text-align: center;
 }
 .buttons {
@@ -55,11 +53,48 @@
 }
 .new-title-entry {
   font-size: calc(0.5vw + 0.5em);
-  width: 75%;
+  width: 80%;
   margin-top: 3vh;
   padding: 0.2em 0 0 0.4em;
   outline: none;
   background: none;
   border: 0;
   border-bottom: 1px solid black;
+}
+
+.merge-todo-box {
+  padding: 1em;
+}
+.input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20vw;
+  height: 15vh;
+}
+.cross {
+  position: absolute;
+  top: -1.4vh;
+  right: -1.4vh;
+  background-color: white;
+  height: 3vh;
+  width: 3vh;
+  cursor: pointer;
+}
+.cross:hover {
+  transform: scale(1.1);
+}
+.cross > img {
+  height: inherit;
+  width: inherit;
+}
+.merge-button {
+  margin-top: 1.5em;
+  width: 7vw;
+  font-size: calc(0.5vw + 0.5em);
+  text-align: center;
+  padding: 0.2em;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(4, 192, 4);
 }

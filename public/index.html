@@ -14,7 +14,7 @@
   </head>
   <body>
     <input type="checkbox" name="searchBarToggle" id="searchBarToggle" />
-    <div class="container">
+    <div class="container ">
       <div class="todoContainer">
         <div class="todo-list">
           <h3>YOUR TODO's LIST</h3>
@@ -85,19 +85,19 @@
 
     <div class="merge-todo-box hidden">
       <div class="message"><span>Enter title to merge Todo</span></div>
-      <input
-        type="text"
-        class="new-title-entry"
-        id="new-title"
-        placeholder="Enter title..."
-      />
-      <div class="buttons">
-        <div class="cancel" id="cancel-merge">
-          <img src="./images/cancel.png" />
+      <div class="input">
+        <input
+          type="text"
+          class="new-title-entry"
+          id="new-title"
+          placeholder="Enter title..."
+        />
+        <div class="merge-button" id="confirm-merge">
+          <span>Merge Todolist</span>
         </div>
-        <div class="confirm" id="confirm-merge">
-          <img src="./images/check.png" />
-        </div>
+      </div>
+      <div class="cross" id="cancel-merge">
+        <img src="./images/cancel.png" />
       </div>
     </div>
   </body>
