@@ -2,6 +2,7 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   margin: 0;
   height: 90vh;
+  overflow: hidden;
 }
 
 body .container {
@@ -119,8 +120,30 @@ h6 {
   line-height: 5vh;
   font-size: calc(1vw + 0.4em);
   font-weight: 400;
-  padding: 1em 2em 3em 2em;
-  margin-bottom: 5vh;
+  padding: 1em 2em 0 2em;
+  max-height: 60vh;
+  overflow-y: hidden;
+}
+
+.todo-body:hover {
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(197, 237, 247, 0.8);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(197, 237, 247, 0.8);
 }
 
 .checkTask {
@@ -194,7 +217,7 @@ h6 {
   display: flex;
   padding: 1em 2em;
   width: inherit;
-  position: absolute;
+  position: relative;
   bottom: 0;
   left: 0;
   right: 0;
@@ -439,7 +462,7 @@ h6 {
 
 .editTaskBtnTxt {
   height: 3vh;
-  padding: 1.1vh 0;
+  padding: 1.1vh 0 1.1vh 1vh;
   cursor: pointer;
 }
 

@@ -138,7 +138,6 @@ const getToDos = function() {
   xhrGet('/getTodo', todoDataJSON => {
     todoData = JSON.parse(todoDataJSON);
     todoData = markExpiredTasks(todoData);
-    console.log(todoData);
     fillTodoList(todoData);
     openFirstTodo();
   });
@@ -163,6 +162,7 @@ const createTaskHTML = function(task) {
       <label for="${task.id}"><span class="checkbox"></span>
       </label><span class="task-name" draggable="true" 
       ondragstart="taskDragStart('${task.id}')"
+      onkeyup="moveOnEnter()"
       onblur="updateTask('${task.id}',this)">${task.name}</span>
       <div> <span class="expiryDate" >${task.expiryDate}</span> </div>
       <div class="dueTaskButton">
@@ -185,6 +185,10 @@ const createTaskHTML = function(task) {
   </div>`;
 };
 
+const moveOnEnter = function() {
+  if (event.keyCode == 13) getElement('taskEntry').focus();
+};
+
 const dueTask = function(dueDateEntry, taskId) {
   const expiryDate = dueDateEntry.value;
   if (expiryDate.length !== 0) {
@@ -200,9 +204,7 @@ const dueTask = function(dueDateEntry, taskId) {
 };
 
 const editTask = function(editElement) {
-  const taskName =
-    editElement.previousElementSibling.previousElementSibling
-      .previousElementSibling;
+  const taskName = editElement.offsetParent.querySelector('.task-name');
   taskName.contentEditable = 'true';
   taskName.focus();
 };
@@ -288,6 +290,7 @@ const showTodo = function(e) {
   });
   removeSelected();
   e.classList.add('selected');
+  taskBox.scrollTop = taskBox.scrollHeight;
 };
 
 const saveTask = function() {
@@ -347,6 +350,7 @@ const closeMergeBox = function() {
   const outerBox = document.querySelector('.container');
   mergeTodoBox.classList.add('hidden');
   outerBox.classList.remove('blur');
+  getElement('new-title').value = '';
 };
 
 const mergeTodo = function() {
