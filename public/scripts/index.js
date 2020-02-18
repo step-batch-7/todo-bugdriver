@@ -76,6 +76,13 @@ const openMergeTodoBox = function(event) {
   outerBox.classList.add('blur');
 };
 
+const openHelpBox = function(event) {
+  const helpBox = document.querySelector('.help-box');
+  helpBox.classList.remove('hidden');
+  const outerBox = document.querySelector('.container');
+  outerBox.classList.add('blur');
+};
+
 const moveTaskToAnotherTodo = function(event) {
   localStorage.setItem('targetId', event.target.id);
   const confirmBox = document.querySelector('.confirm-box');
@@ -134,11 +141,16 @@ const markExpiredTasks = function(todoData) {
   });
 };
 
+const showUserName = function(userName) {
+  getElement('username').innerText = userName;
+};
+
 const getToDos = function() {
   xhrGet('/getTodo', todoDataJSON => {
-    todoData = JSON.parse(todoDataJSON);
-    todoData = markExpiredTasks(todoData);
+    const { username, todoList } = JSON.parse(todoDataJSON);
+    todoData = markExpiredTasks(todoList);
     fillTodoList(todoData);
+    showUserName(username);
     openFirstTodo();
   });
 };
@@ -279,6 +291,7 @@ const removeSelected = function() {
 
 const showTodo = function(e) {
   const todo = todoData.find(todoElement => todoElement.id == e.id);
+  console.log(todo);
   document.querySelector('.todo-task').id = e.id;
   document.getElementById('todo-title').innerText = todo.title;
   const remainingTaskCount = tasksRemainingInTodo(todo);
@@ -353,6 +366,13 @@ const closeMergeBox = function() {
   getElement('new-title').value = '';
 };
 
+const closeHelpBox = function() {
+  const helpBox = document.querySelector('.help-box');
+  const outerBox = document.querySelector('.container');
+  helpBox.classList.add('hidden');
+  outerBox.classList.remove('blur');
+};
+
 const mergeTodo = function() {
   const firstTodoId = localStorage.getItem('firstTodoId');
   const secondTodoId = localStorage.getItem('secondTodoId');
@@ -375,16 +395,19 @@ const attachListeners = function() {
   const todoTitle = getElement('todo-title');
   const todoSearchText = getElement('todoSearchText');
   const logout = getElement('logout');
+  const help = getElement('help');
   const confirm = getElement('confirm');
   const cancel = getElement('cancel');
   const confirmMerge = getElement('confirm-merge');
   const cancelMerge = getElement('cancel-merge');
+  const cancelHelp = getElement('cancel-help');
   const mergeTitleInput = getElement('new-title');
 
   confirm.onclick = moveTask;
   cancel.onclick = closeConfirmBox;
   confirmMerge.onclick = mergeTodo;
   cancelMerge.onclick = closeMergeBox;
+  cancelHelp.onclick = closeHelpBox;
   mergeTitleInput.onkeyup = function(event) {
     if (event.keyCode == 13) {
       mergeTodo();
@@ -392,6 +415,7 @@ const attachListeners = function() {
   };
 
   logout.onclick = performLogout;
+  help.onclick = openHelpBox;
   todoSearchText.onkeyup = handleSearch;
   todoTitle.onblur = updateTodo;
   createTodoBtn.onclick = saveTodo;

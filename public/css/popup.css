@@ -78,6 +78,7 @@
   right: -1.4vh;
   background-color: white;
   height: 3vh;
+  border-radius: 50%;
   width: 3vh;
   cursor: pointer;
 }
@@ -104,4 +105,45 @@
 .merge-button:hover {
   color: white;
   background-color: rgb(4, 192, 4);
+}
+
+.help-box {
+  padding: 1em;
+  position: absolute;
+  left: 15vw;
+  top: 15vh;
+  border: 1px solid #000;
+  padding-top: 1em;
+  align-items: center;
+  width: 70vw;
+}
+
+.instruction-Box {
+  display: flex;
+  flex-direction: column;
+  max-height: 60vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.title {
+  text-align: center;
+}
+.title > h1 {
+  font-weight: 500;
+}
+
+.instruction {
+  display: flex;
+  flex-direction: column;
+  font-size: calc(0.7vw + 0.7em);
+  margin-top: 0.5em;
+}
+
+.sub-instruction {
+  font-size: calc(0.3vw + 0.7em);
+  font-weight: 100;
+  margin-left: 1em;
+  padding-top: 0.5em;
+  line-height: 1.8em;
 }

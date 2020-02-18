@@ -54,36 +54,39 @@ describe('GET', () => {
   });
   context('/getTodo', () => {
     it('should give todoData to user', done => {
-      const expectedData = [
-        {
-          id: 'todo_1',
-          title: 'newTitle1',
-          time: 1580982174979,
-          tasks: [
-            {
-              id: 'task_1',
-              name: 'Task1',
-              done: true,
-              time: 1580982179586,
-              expiryDate: ''
-            }
-          ]
-        },
-        {
-          id: 'todo_2',
-          title: 'Todo2',
-          time: 1580982185835,
-          tasks: [
-            {
-              id: 'task_2',
-              name: 'Task1',
-              done: false,
-              time: 1580982189967,
-              expiryDate: ''
-            }
-          ]
-        }
-      ];
+      const expectedData = {
+        username: 'testuser',
+        todoList: [
+          {
+            id: 'todo_1',
+            title: 'newTitle1',
+            time: 1580982174979,
+            tasks: [
+              {
+                id: 'task_1',
+                name: 'Task1',
+                done: true,
+                time: 1580982179586,
+                expiryDate: ''
+              }
+            ]
+          },
+          {
+            id: 'todo_2',
+            title: 'Todo2',
+            time: 1580982185835,
+            tasks: [
+              {
+                id: 'task_2',
+                name: 'Task1',
+                done: false,
+                time: 1580982189967,
+                expiryDate: ''
+              }
+            ]
+          }
+        ]
+      };
       request(app)
         .get('/getTodo')
         .expect(200)
