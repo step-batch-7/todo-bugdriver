@@ -192,7 +192,7 @@ const createTaskHTML = function(task) {
        <img src="./images/edit.png" class="editTaskBtnTxt"/>
       </div>
       <div class="deleteTaskButton" onclick="deleteTask('${task.id}')">
-        <span class="deleteTaskBtnTxt"> - </span>
+        <img src="./images/delete.png" class="editTaskBtnTxt"/>
       </div>
   </div>`;
 };

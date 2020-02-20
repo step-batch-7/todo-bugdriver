@@ -59,7 +59,7 @@ body .container {
   font-size: calc(1vw + 0.5em);
   justify-content: space-between;
   align-items: center;
-  padding: 0 3em;
+  padding: 0 2em;
   box-shadow: 0 0 0px 1px grey;
   flex-wrap: wrap;
 }
@@ -310,18 +310,16 @@ h6 {
 }
 
 .deleteTodoButton {
-  height: 4vh;
-  width: 4vw;
   cursor: pointer;
   position: absolute;
-  right: 0;
-  transform: rotate(45deg);
-  font-size: 2em;
+  right: 1vw;
+  top: 0;
+  font-size: 1.4em;
 }
 
 .deleteTodoButton:hover > .deleteBtnTxt {
   color: red;
-  font-size: 1.06em;
+  font-size: 1.02em;
 }
 
 .deleteTaskButton {
@@ -345,9 +343,11 @@ h6 {
   border-bottom: 1px solid grey;
 }
 #todo-title {
-  padding: 0 2vw 0 0;
+  padding: 0 1vw 0 0;
   outline: none;
   flex-grow: 1;
+  font-weight: 500;
+  font-size: 0.9em;
 }
 #todo-title:focus {
   border-bottom: 1px solid grey;
@@ -555,14 +555,6 @@ h6 {
 .header-title {
   font-weight: 300;
   padding: 0 2vw;
-}
-
-.header-title::before {
-  content: '|';
-  font-size: calc(1vh + 1em);
-  position: absolute;
-  left: 0.5vw;
-  top: 0.8rem;
 }
 
 .username {
