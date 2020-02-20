@@ -8,7 +8,8 @@
     "test": "test"
   },
   "dependencies": {
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
