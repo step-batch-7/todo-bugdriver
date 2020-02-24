@@ -291,7 +291,6 @@ const removeSelected = function() {
 
 const showTodo = function(e) {
   const todo = todoData.find(todoElement => todoElement.id == e.id);
-  console.log(todo);
   document.querySelector('.todo-task').id = e.id;
   document.getElementById('todo-title').innerText = todo.title;
   const remainingTaskCount = tasksRemainingInTodo(todo);
